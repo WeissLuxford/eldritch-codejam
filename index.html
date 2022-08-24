@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style/style.css">
+  <link rel="shortcut icon" href="assets/icon.png" type="image/x-icon">
+  <title>Eldritch Evil</title> 
+</head>
+<body>
+  <header class="header">
+    <div class="position fade"></div>
+    <div class="position__bottom fade"></div>
+  </header>
+  <main class="main">
+     <div class="container">
+      <section class="first__and__last-section">
+        <div class="box">
+          <h3 class="choose__title" style="margin-bottom: 2rem;">Choose your God</h3>
+        <div class="eldritch__box">
+          <div class="eldritch__god" ><img src="./assets/img/Azathoth.png" alt="" class="eldritch__img" id="0"></div>
+          <div class="eldritch__god" ><img src="./assets/img/Cthulthu.png" alt="" class="eldritch__img" id="1"></div>
+          <div class="eldritch__god" ><img src="./assets/img/IogSothoth.png" alt="" class="eldritch__img" id="2"></div>
+          <div class="eldritch__god" ><img src="./assets/img/ShubNiggurath.png" alt="" class="eldritch__img" id="3"></div>
+        </div>
+      </div>
+        <div class="difficulty__level fade">
+          <h3 class="choose__title">Who do you wish to pretend ?</h3>
+          <ul class="choose__menu">
+            <li class="choose__level" id="light">Baby</li>
+            <li class="choose__level" id="easy">Adult</li>
+            <li class="choose__level" id="normal">Man</li>
+            <li class="choose__level" id="hard">God</li>
+            <li class="choose__level" id="impossible">Detective!!!</li>
+          </ul>
+        </div>
+        <div class="last__block fade">
+          <div class="count__card">
+            <h3 class="count__card-title choose__title">Count Cards</h3>
+            <div class="stages" id="first">
+              <div class="green cards">Green: 0</div>
+              <div class="brown cards">Brown: 0</div>
+              <div class="blue cards">Blue: 0</div>
+            </div>
+
+            <div class="stages" id="second">
+              <div class="green cards">Green: 0</div>
+              <div class="brown cards">Brown: 0</div>
+              <div class="blue cards">Blue: 0</div>
+            </div>
+
+            <div class="stages" id="third">
+              <div class="green cards">Green: 0</div>
+              <div class="brown cards">Brown: 0</div>
+              <div class="blue cards">Blue: 0</div>
+            </div>
+
+          </div>
+
+        <div class="deck"><img src="assets/img/deck.png" alt="" class="deck__img"></div>
+      </div>
+      </section>
+
+      <div class="cards__deck">
+        <div class="card" id="card1" style="--u:5;--i:-5;"></div>
+        <div class="card" id="card2" style="--u:4;--i:-4;"></div>
+        <div class="card" id="card3" style="--u:3;--i:-3;"></div>
+        <div class="card" id="card4" style="--u:2;--i:-2;"></div>
+        <div class="card" id="card5" style="--u:1;--i:-1;"></div>
+        <div class="card" id="card6" style="--u:0;--i:0;"></div>
+        <div class="card" id="card7" style="--u:1;--i:1;"></div>
+        <div class="card" id="card8" style="--u:2;--i:2;"></div>
+        <div class="card" id="card9" style="--u:3;--i:3;"></div>
+        <div class="card" id="card10" style="--u:4;--i:4;"></div>
+        <div class="card" id="card11" style="--u:5;--i:5;"></div>
+      </div>
+     </div>
+  </main>
+  <footer class="footer">
+  </footer>  
+
+  <script src="data/mythicCards/index.js" type="module"></script>
+  <script src="data/ancients.js" type="module"></script>
+  <script src="data/difficulties.js" type="module"></script>
+  <script src="js/index.js" type="module"></script>
+</body>
+</html>
