@@ -20,6 +20,23 @@ li{
   transform: translateY(-20%);
 }
 
+.showDeck{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.center{
+  position: fixed !important;
+  left: 30% !important;
+  transform: translate(calc(-50% + var(--i)*5px), calc(-150% + var(--i)*3px)) rotateY(-180deg) !important;
+}
+
+.fromFar{
+  transform: translateY(-260%) translateX(-490%) !important;
+  opacity: 0;
+}
+
 .position{
   position: fixed;
   top: 2%;
@@ -40,6 +57,13 @@ li{
   transition: 300ms;
   visibility: visible;
   opacity: 1;
+}
+
+.fade_bot{
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(100%);
 }
 
 .container{
@@ -111,12 +135,13 @@ body{
 .eldritch__img{
   width: 100%;
   transition: 1s;
-  object-fit: contain;
+  object-fit: cover;
   transition: 500ms;
 }
 
 .eldritch__god:hover{
-  box-shadow: 1rem 0 10rem 1rem black;
+  box-shadow: 1rem 0 5rem 1rem black;
+  position: relative;
 
 }
 .eldritch__img:hover{
@@ -178,8 +203,13 @@ body{
 
 
 .last__block{
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   margin-top: 3rem;
   transition: 500ms;
@@ -204,11 +234,12 @@ body{
   display: flex;
   column-gap: 3rem;
   row-gap: 1rem;
+  margin-right: 3rem;
 }
 
 .cards{
   border: 3px solid black;
-  padding: 1rem;
+  padding: 0.6rem 2rem;
   font-size: 2rem;
 }
 
@@ -228,7 +259,8 @@ body{
 /* Колода  */
 .deck{
   width: 30rem;
-
+  align-self: flex-end;
+  margin-bottom: 6rem;
 }
 .deck__img{
   width: 100%;
@@ -237,7 +269,8 @@ body{
   transition: 300ms;
 }
 .deck__img:hover{
-  transform: scale(1.1) rotate(-15deg);
+  transform: scale(1.01) translateY(-2rem);
+  box-shadow: inset 0 0 10rem 2rem black;
 }
 
 /* Колода  */
@@ -248,18 +281,19 @@ body{
   position: absolute;
   bottom: 0%;
   left: 50%;
-  transform: translateX(-30%) ;
+  transform: translateX(-16%) ;
   width: 57rem;
+  perspective: 1000px;
 }
 
 .card{
   position: absolute;
   bottom: 0;
   left: 0%;
-  width: 28.5rem;
-  height: 42.5rem;
-  border-radius: 10%;
-  background: url(../assets/img/deck__back.png) no-repeat center/cover;
+  width: 19rem;
+  height: 28.3rem;
+  border-radius: 8%;
+  /* background: url(../assets/img/deck__back.png) no-repeat center/cover; */
   transform: rotate(calc(6deg*var(--i))) 
             translateX(calc(10rem*var(--i)))
             translateY(calc(-2rem*var(--u)));
@@ -270,13 +304,32 @@ body{
   cursor: grabbing;
 }
 .card:hover{
-  box-shadow: inset 0 0 2rem 0.3rem #006959,
-              0 0 2rem 1rem #006959,
-              0 0 7rem 1rem #27e9cb,
+  box-shadow: inset 0 0 1rem 0.3rem #006959,
+              0 0 1rem 0.5rem #006959,
+              0 0 4rem 0.5rem #27e9cb,
               0 0 10rem 0.5rem #27e9cb;
   transform: rotate(calc(6deg*var(--i)))
              translateX(calc(10rem*var(--i)))
              translateY(calc((-2rem*var(--u)) + (-15rem)));
+}
+
+
+
+
+/* Стили для переворота карт  */
+.card__front,
+.card__back{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8%;
+  object-fit: cover;
+  backface-visibility: hidden;
+}
+.card__front{
+  transform: rotateY(-180deg);
 }
 
 

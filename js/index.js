@@ -24,11 +24,17 @@ eldritchGod.forEach(value => {
 
 let yourLevel = "";
  const last = document.querySelector(".last__block");
+ const positionBottom = document.querySelector(".position__bottom");
 
-difficultyLevel.addEventListener('click', (e) => {
+ difficultyLevel.addEventListener('click', (e) => {
+  positionBottom.innerHTML = `<img src="assets/img/${e.target.id}.png" alt="" class="eldritch__img">`;
+  positionBottom.classList.remove("fade_bot")
   yourLevel = e.target.id;
+  console.log(yourLevel);
   difficultyLevel.classList.add("fade");
   last.classList.remove("fade")
+  createCards(8)
+  showCard() 
 })
 
 
@@ -83,6 +89,58 @@ let shuffleBlue = shuffleCards(cardsData.blueCards, newDeck[0].blue),
     return Math.floor(Math.random() * (max - min + 1) + min) ;
   }
 }  myHelper()
+
+
+
+function createCards(arr){
+  const fullDeck = document.querySelector(".cards__deck");
+  // длина какого то массива
+
+  // Функция для создания определенного количества карт и добавления их в колоду НАЧАЛО
+
+  for(let i = 0; i <= arr; i++){
+    let newCard = document.createElement("div"),
+    front = new Image(),
+    back = new Image();
+    front.classList.add("card__front"),
+    back.classList.add("card__back");
+    front.src = "assets/img/baby.jpg", back.src = "assets/img/deck__back.png";
+    newCard.classList.add("card"), newCard.classList.add("fromFar");
+    newCard.append(back);
+    newCard.append(front);
+    fullDeck.append(newCard);
+   setTimeout( function littleIntervalCards() {
+    newCard.classList.remove("fromFar");
+      newCard.id = `card${i}`;
+      newCard.style = `--u:${createUNumber(i-arr/2)};--i:${i-arr/2};`
+    }, i*160)
+    
+  }
+
+  // Функция чтобы создать диаграмму от 3-2-1-1-1-2-3 для {--u}
+  function createUNumber(num) {
+    if(num < 0 ) num = -num;
+    if(num === 0) num = 1;
+    return num
+  }
+} 
+// Функция для создания определенного количества карт и добавления их в колоду КОНЕЦ
+
+
+ 
+
+// Перебор карт, простой не используя рандомные карты Начало
+function showCard() {
+  const deckClick = document.querySelector(".deck");
+  let block = document.querySelectorAll(".card"), count = 0;
+
+    deckClick.addEventListener("click", (e) => {
+      block[count].style.transition = `1s ease-in-out`
+      block[count].classList.add("center")
+      count++
+    })
+  }
+// Перебор карт, простой не используя рандомные карты Конец
 
 
 
