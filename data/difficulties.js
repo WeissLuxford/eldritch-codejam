@@ -1,23 +1,23 @@
 const difficulties = [
   {
     id: 'light',
-    name: 'Песочница'
+    name: 'Light Mode'
   },
   {
     id: 'easy',
-    name: 'Низкая'
+    name: 'Easy Mode'
   },
   {
     id: 'normal',
-    name: 'Средняя'
+    name: 'Normal Mode'
   },
   {
     id: 'hard',
-    name: 'Высокая'
+    name: 'Hard Mode'
   },
   {
     id: 'impossible',
-    name: 'Невозможно'
+    name: 'Impossible'
   }
 ]
 

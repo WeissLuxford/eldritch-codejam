@@ -4,11 +4,26 @@ import difficulties from '../data/difficulties.js'
 import ancientsData from '../data/ancients.js'
 import cardsData from '../data/mythicCards/index.js'
 
-let gods = "";
+let gods = "", newDeck;
 const box = document.querySelector(".box");
 const eldritchGod = document.querySelectorAll(".eldritch__god");
-const position = document.querySelector(".position");
 const difficultyLevel = document.querySelector(".difficulty__level");
+const choseLevel = document.querySelectorAll(".choose__level");
+const position = document.querySelector(".position");
+
+
+
+//берет первую карту с перетасованной колоды(также удаляет его с массива)
+// и добавляет его в новую колоду 
+function getCard(shufledArr, eldritchData, color, stage) {
+  let colorArr = [];
+  let cardNum = eldritchData[stage + "Stage"][color + "Cards"];
+  for(let i = 0; i < cardNum; i++){
+    colorArr.push(shufledArr.pop())
+  }
+  return colorArr
+}
+
 
 eldritchGod.forEach(value => {
   value.addEventListener('click', (event) => {
@@ -17,47 +32,60 @@ eldritchGod.forEach(value => {
     box.classList.add("fade")
     position.classList.remove("fade")
     difficultyLevel.classList.remove("fade")
-    console.log(gods);
+    createDeck()
+    console.log(newDeck, gods);
   })
 })
-  
 
 let yourLevel = "";
  const last = document.querySelector(".last__block");
  const positionBottom = document.querySelector(".position__bottom");
 
- difficultyLevel.addEventListener('click', (e) => {
-  positionBottom.innerHTML = `<img src="assets/img/${e.target.id}.png" alt="" class="eldritch__img">`;
-  positionBottom.classList.remove("fade_bot")
-  yourLevel = e.target.id;
-  console.log(yourLevel);
-  difficultyLevel.classList.add("fade");
-  last.classList.remove("fade")
-  createCards(8)
-  showCard() 
-})
+ choseLevel.forEach(value => {
+  value.addEventListener('click', (e) => {
+    positionBottom.innerHTML = `<img src="assets/img/${e.target.id}.png" alt="" class="eldritch__img">`;
+    positionBottom.classList.remove("fade_bot")
+    yourLevel = e.target.id;
+    console.log(yourLevel);
+    difficultyLevel.classList.add("fade");
+    last.classList.remove("fade")
+    createCards(8)
+    showCard() 
+  })
+ })
 
-
-function myHelper() {
-
-
+  // пермешиваем карты 
+  let shuffleBlue = shuffleCards(cardsData.blueCards, []),
+  shuffleGreen = shuffleCards(cardsData.greenCards, []),
+  shuffleBrown = shuffleCards(cardsData.brownCards, []);
 
   // колода в котором я соберу все карты в разные этапы
-  const newDeck = [
+function createDeck() {
+   newDeck = [
     {
-      green: [], brown: [], blue: [],
+      green: getCard(shuffleGreen, gods, 'green', 'first'),
+      brown: getCard(shuffleBrown, gods, 'brown', 'first'),
+      blue: getCard(shuffleBlue, gods, 'blue', 'first'),
+
     },
     {
-      green: [], brown: [], blue: [],
+      green: getCard(shuffleGreen, gods, 'green', 'second'),
+      brown: getCard(shuffleBrown, gods, 'brown', 'second'),
+      blue: getCard(shuffleBlue, gods, 'blue', 'second'),
+
     },
     {
-      green: [], brown: [], blue: [],
+      green: getCard(shuffleGreen, gods, 'green', 'third'),
+      brown: getCard(shuffleBrown, gods, 'brown', 'third'),
+      blue: getCard(shuffleBlue, gods, 'blue', 'third'),
     }
   ]
+}
+  
+
 
   // цифры нужно использую как массивы, будущем нужно заменить из на
   // длинну массивов из файла Data
-  let green = [];
 
   // принимает в себя массив(что-угодно) и перетасовывет карты
   function shuffleCards(cardArr, myDeck){
@@ -70,25 +98,14 @@ function myHelper() {
     return myDeck
   }
 
-  // пермешиваем карты 
-let shuffleBlue = shuffleCards(cardsData.blueCards, newDeck[0].blue),
-    shuffleGreen = shuffleCards(cardsData.greenCards, newDeck[0].green),
-    shuffleBrown = shuffleCards(cardsData.brownCards, newDeck[0].brown);
 
-    console.log(shuffleBlue, shuffleGreen, shuffleBrown);
-
-  //берет первую карту с перетасованной колоды(также удаляет его с массива)
-  // и добавляет его в новую колоду 
-  function getCard() {
-    return arguments
-  }
 
 
   // функция для того чтобы взять случайное число 
   function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min) ;
   }
-}  myHelper()
+
 
 
 

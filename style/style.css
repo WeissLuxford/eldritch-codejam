@@ -28,7 +28,7 @@ li{
 
 .center{
   position: fixed !important;
-  left: 30% !important;
+  left: 20% !important;
   transform: translate(calc(-50% + var(--i)*5px), calc(-150% + var(--i)*3px)) rotateY(-180deg) !important;
 }
 
@@ -44,14 +44,15 @@ li{
   max-width: 20rem;
   width: 100% !important;
   transition: 300ms;
+  overflow: hidden;
   visibility: visible;
   opacity: 1;
 }
 
 .position__bottom{
   position: fixed;
-  bottom: 2%;
-  left: 1%;
+  bottom: 0;
+  left: 0.5%;
   max-width: 20rem;
   width: 100% !important;
   transition: 300ms;
@@ -107,6 +108,9 @@ body{
 
 /* Начало Древних богов */
 .box{
+  position: relative;
+  top: 23rem;
+  left: 0;
   transition: 300ms;
 }
 
@@ -293,6 +297,7 @@ body{
   width: 19rem;
   height: 28.3rem;
   border-radius: 8%;
+  transform-style: preserve-3d;
   /* background: url(../assets/img/deck__back.png) no-repeat center/cover; */
   transform: rotate(calc(6deg*var(--i))) 
             translateX(calc(10rem*var(--i)))
