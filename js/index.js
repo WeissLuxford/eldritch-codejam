@@ -3,8 +3,8 @@
 import difficulties from '../data/difficulties.js'
 import ancientsData from '../data/ancients.js'
 import cardsData from '../data/mythicCards/index.js'
-function Game(){
-let gods = "", newDeck, allStages;
+
+let gods = "", newDeck, allStages, yourLevel;
 const box = document.querySelector(".box");
 const eldritchGod = document.querySelectorAll(".eldritch__god");
 const difficultyLevel = document.querySelector(".difficulty__level");
@@ -12,14 +12,62 @@ const choseLevel = document.querySelectorAll(".choose__level");
 const position = document.querySelector(".position");
 
 
+eldritchGod.forEach(value => {
+  value.addEventListener('click', (event) => {
+    gods = ancientsData[event.target.id]
+    position.innerHTML = `<h3 class="choose__title">Your opponent</h3> ${event.target.outerHTML}`
+    box.classList.add("fade")
+    position.classList.remove("fade")
+    difficultyLevel.classList.remove("fade")
 
-//берет первую карту с перетасованной колоды(также удаляет его с массива)
+  })
+})
+
+
+ const last = document.querySelector(".last__block");
+ const positionBottom = document.querySelector(".position__bottom");
+
+ choseLevel.forEach(value => {
+  value.addEventListener('click', (e) => {
+    positionBottom.innerHTML = `<img src="assets/img/${e.target.id}.png" alt="" class="eldritch__img">`;
+    positionBottom.classList.remove("fade_bot")
+    yourLevel = e.target.id;
+    console.log(yourLevel);
+    difficultyLevel.classList.add("fade");
+    last.classList.remove("fade")
+    createDeck()
+    allStages = objToArray(newDeck)
+    createCards(allToOneArr(allStages).length)
+    showCard() 
+
+  })
+ })
+
+ //берет первую карту с перетасованной колоды(также удаляет его с массива)
 // и добавляет его в новую колоду 
 function getCard(shufledArr, eldritchData, color, stage) {
   let colorArr = [];
   let cardNum = eldritchData[stage + "Stage"][color + "Cards"];
-  for(let i = 0; i < cardNum; i++){
-    colorArr.push(shufledArr.pop())
+  if(yourLevel === "light"){
+    for(let i = 0; i < cardNum; i++){
+      colorArr.push(shufledArr.pop())
+    }
+  }else if(yourLevel === "easy"){
+    for(let i = 0; i < cardNum; i++){
+      colorArr.push(shufledArr.pop())
+    }
+  } else if(yourLevel === "normal"){
+    for(let i = 0; i < cardNum; i++){
+      colorArr.push(shufledArr.pop())
+    }
+  }else if(yourLevel === "hard"){
+    for(let i = 0; i < cardNum; i++){
+      colorArr.push(shufledArr.pop())
+    }
+  } else if(yourLevel === "impossible"){
+    for(let i = 0; i < cardNum; i++){
+      colorArr.push(shufledArr.pop())
+    }
   }
   return colorArr
 }
@@ -38,35 +86,6 @@ function objToArray(arr) {
   })
   return stageArr
 }
-
-eldritchGod.forEach(value => {
-  value.addEventListener('click', (event) => {
-    gods = ancientsData[event.target.id]
-    position.innerHTML = `<h3 class="choose__title">Your opponent</h3> ${event.target.outerHTML}`
-    box.classList.add("fade")
-    position.classList.remove("fade")
-    difficultyLevel.classList.remove("fade")
-    createDeck()
-    allStages = objToArray(newDeck)
-  })
-})
-
-let yourLevel = "";
- const last = document.querySelector(".last__block");
- const positionBottom = document.querySelector(".position__bottom");
-
- choseLevel.forEach(value => {
-  value.addEventListener('click', (e) => {
-    positionBottom.innerHTML = `<img src="assets/img/${e.target.id}.png" alt="" class="eldritch__img">`;
-    positionBottom.classList.remove("fade_bot")
-    yourLevel = e.target.id;
-    console.log(yourLevel);
-    difficultyLevel.classList.add("fade");
-    last.classList.remove("fade")
-    createCards(allToOneArr(allStages).length)
-    showCard() 
-  })
- })
 
   // пермешиваем карты 
   let shuffleBlue = shuffleCards(cardsData.blueCards, []),
@@ -179,10 +198,11 @@ function showCard() {
       }
     })
   }
+
+
+
+
 // Перебор карт, простой не используя рандомные карты Конец
-
-
-
 function allToOneArr(arr) {
   let myArr = [];
   arr.forEach(value => {
@@ -215,7 +235,7 @@ function countCards(grNum, brNum, blNum) {
     }
     if(col === "brown") {
       brNum <= gods[f][br] ? clear(brown, 0) : 
-      brNum <= gods[f][br] + gods[f][br] ? clear(brown, 1) :
+      brNum <= gods[f][br] + gods[s][br] ? clear(brown, 1) :
       clear(brown, 2);
     }
     if(col === "blue"){
@@ -238,9 +258,9 @@ function countCards(grNum, brNum, blNum) {
       green[2].innerHTML = `Green:&nbsp;${(gods[f][gr] + gods[s][gr]) - grNum < 0 ? gods[t][gr] - (grNum - (gods[f][gr] + gods[s][gr])) : gods[t][gr]}`;
       brown[2].innerHTML = `Brown:&nbsp;${(gods[f][br] + gods[s][br]) - brNum < 0 ? gods[t][br] - (brNum - (gods[f][br] + gods[s][br])) : gods[t][br]}`;
       blue[2].innerHTML = `Blue:&nbsp;${(gods[f][bl] + gods[s][bl]) - blNum < 0 ? gods[t][bl] - (blNum - (gods[f][bl] + gods[s][bl])) : gods[t][bl]}`;
-}}
+}
 
-Game()
+
 
 document.querySelector(".restart__game").addEventListener("click", () => {
   document.querySelector(".restart").classList.add("fade_s")

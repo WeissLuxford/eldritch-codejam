@@ -86,13 +86,15 @@ li{
 }
 @keyframes back {
   0%{
-    border: 1 px solid currentColor;
+    border: 3px solid currentColor;
     box-shadow: inset 0 0 0.5rem 0.3rem currentColor,
+                0 0 0.4rem 0.2rem white,
                 0 0 1rem 1rem currentColor,
                 0 0 3rem 1rem currentColor;
+                text-shadow: 5px 5px 5px currentColor;;
   }
   100%{
-
+    box-shadow: 0;
   }
 }
 
