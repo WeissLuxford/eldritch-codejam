@@ -3,8 +3,8 @@
 import difficulties from '../data/difficulties.js'
 import ancientsData from '../data/ancients.js'
 import cardsData from '../data/mythicCards/index.js'
-
-let gods = "", newDeck;
+function Game(){
+let gods = "", newDeck, allStages;
 const box = document.querySelector(".box");
 const eldritchGod = document.querySelectorAll(".eldritch__god");
 const difficultyLevel = document.querySelector(".difficulty__level");
@@ -24,6 +24,20 @@ function getCard(shufledArr, eldritchData, color, stage) {
   return colorArr
 }
 
+// Берет создает массив с подмассивами и перемешивает подмассивы
+function objToArray(arr) {
+  let stageArr = []
+  arr.forEach(value => {
+    let stages = []
+    Object.values(value).forEach((prop) => {
+      prop.forEach((item, i) => {
+        stages.push(item)
+      })
+    })
+    stageArr.push(shuffleCards(stages, []))
+  })
+  return stageArr
+}
 
 eldritchGod.forEach(value => {
   value.addEventListener('click', (event) => {
@@ -33,7 +47,7 @@ eldritchGod.forEach(value => {
     position.classList.remove("fade")
     difficultyLevel.classList.remove("fade")
     createDeck()
-    console.log(newDeck, gods);
+    allStages = objToArray(newDeck)
   })
 })
 
@@ -49,7 +63,7 @@ let yourLevel = "";
     console.log(yourLevel);
     difficultyLevel.classList.add("fade");
     last.classList.remove("fade")
-    createCards(8)
+    createCards(allToOneArr(allStages).length)
     showCard() 
   })
  })
@@ -115,13 +129,13 @@ function createCards(arr){
 
   // Функция для создания определенного количества карт и добавления их в колоду НАЧАЛО
 
-  for(let i = 0; i <= arr; i++){
+  for(let i = 0; i < arr; i++){
     let newCard = document.createElement("div"),
     front = new Image(),
     back = new Image();
     front.classList.add("card__front"),
     back.classList.add("card__back");
-    front.src = "assets/img/baby.jpg", back.src = "assets/img/deck__back.png";
+    front.src = `${allToOneArr(allStages)[i].cardFace}`, back.src = "assets/img/deck__back.png";
     newCard.classList.add("card"), newCard.classList.add("fromFar");
     newCard.append(back);
     newCard.append(front);
@@ -137,28 +151,97 @@ function createCards(arr){
   // Функция чтобы создать диаграмму от 3-2-1-1-1-2-3 для {--u}
   function createUNumber(num) {
     if(num < 0 ) num = -num;
-    if(num === 0) num = 1;
+    if(num <= 2) num = 2;
     return num
   }
 } 
 // Функция для создания определенного количества карт и добавления их в колоду КОНЕЦ
 
 
- 
-
+let cardColor, col;
 // Перебор карт, простой не используя рандомные карты Начало
 function showCard() {
+  countCards(0, 0, 0)
   const deckClick = document.querySelector(".deck");
   let block = document.querySelectorAll(".card"), count = 0;
-
+  let green = 0,brown = 0,blue = 0;
     deckClick.addEventListener("click", (e) => {
-      block[count].style.transition = `1s ease-in-out`
       block[count].classList.add("center")
-      count++
+      cardColor = allToOneArr(allStages)[count].id
+      col = allToOneArr(allStages)[count].color
+      if(onlyWord(cardColor) === "green") green++
+      if(onlyWord(cardColor) === "brown") brown++
+      if(onlyWord(cardColor) === "blue") blue++
+      countCards(green, brown, blue)
+      count++;
+      if(block[count] === undefined){
+        document.querySelector(".restart").classList.remove("fade_s")
+      }
     })
   }
 // Перебор карт, простой не используя рандомные карты Конец
 
 
 
+function allToOneArr(arr) {
+  let myArr = [];
+  arr.forEach(value => {
+    value.forEach(a => myArr.push(a))
+  })
+  return myArr
+}
 
+function onlyWord(str) {
+  return str.replace(/\d/gi, "")
+}
+
+
+function countCards(grNum, brNum, blNum) {
+  const green = document.querySelectorAll(".green"),
+    brown = document.querySelectorAll(".brown"),
+    blue = document.querySelectorAll(".blue");
+    let gr = 'greenCards', br = 'brownCards', bl = 'blueCards';
+    let f = 'firstStage', s = 'secondStage', t = 'thirdStage';
+
+    function clear(color, index){
+      color[index].classList.toggle("cool")
+      setTimeout(() => (color[index].classList.toggle("cool")), 600)
+    } 
+    console.log(green[0].classList);
+    if(col === "green"){
+      grNum <= gods[f][gr] ? clear(green, 0):
+      grNum <= gods[f][gr] + gods[s][gr] ? clear(green, 1):
+      clear(green, 2) ;
+    }
+    if(col === "brown") {
+      brNum <= gods[f][br] ? clear(brown, 0) : 
+      brNum <= gods[f][br] + gods[f][br] ? clear(brown, 1) :
+      clear(brown, 2);
+    }
+    if(col === "blue"){
+      blNum <= gods[f][bl] ? clear(blue, 0) : 
+      blNum <= gods[f][bl] + gods[s][bl] ? clear(blue, 1) :
+      clear(blue, 2);
+    }
+  
+    
+    
+    
+      green[0].innerHTML = `Green:&nbsp;${(grNum > gods[f][gr] ? 0 : gods[f][gr] - grNum)}`;
+      brown[0].innerHTML = `Brown:&nbsp;${(brNum > gods[f][br] ? 0 : gods[f][br] - brNum)}`;
+      blue[0].innerHTML = `Blue:&nbsp;${(blNum > gods[f][bl] ? 0 : gods[f][bl] - blNum)}`;
+
+      green[1].innerHTML = `Green:&nbsp;${(gods[f][gr] + gods[s][gr]) - grNum < 0 ? 0 : gods[f][gr] - grNum < 0 ? gods[s][gr] - (grNum - gods[f][gr]) : gods[s][gr]} `;
+      brown[1].innerHTML = `Brown:&nbsp;${(gods[f][br] + gods[s][br]) - brNum < 0 ? 0 : gods[f][br] - brNum < 0 ? gods[s][br] - (brNum - gods[f][br]) : gods[s][br]} `;
+      blue[1].innerHTML = `Blue:&nbsp;${(gods[f][bl] + gods[s][bl]) - blNum < 0 ? 0 : gods[f][bl] - blNum < 0 ? gods[s][bl] - (blNum - gods[f][bl]) :  gods[s][bl]} `;
+      
+      green[2].innerHTML = `Green:&nbsp;${(gods[f][gr] + gods[s][gr]) - grNum < 0 ? gods[t][gr] - (grNum - (gods[f][gr] + gods[s][gr])) : gods[t][gr]}`;
+      brown[2].innerHTML = `Brown:&nbsp;${(gods[f][br] + gods[s][br]) - brNum < 0 ? gods[t][br] - (brNum - (gods[f][br] + gods[s][br])) : gods[t][br]}`;
+      blue[2].innerHTML = `Blue:&nbsp;${(gods[f][bl] + gods[s][bl]) - blNum < 0 ? gods[t][bl] - (blNum - (gods[f][bl] + gods[s][bl])) : gods[t][bl]}`;
+}}
+
+Game()
+
+document.querySelector(".restart__game").addEventListener("click", () => {
+  document.querySelector(".restart").classList.add("fade_s")
+})

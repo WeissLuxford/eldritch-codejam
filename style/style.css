@@ -12,7 +12,11 @@ a{
 li{
   list-style: none;
 }
-
+.fade_s{
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+}
 .fade{
   position: absolute;
   opacity: 0;
@@ -29,8 +33,11 @@ li{
 .center{
   position: fixed !important;
   left: 20% !important;
-  transform: translate(calc(-50% + var(--i)*5px), calc(-150% + var(--i)*3px)) rotateY(-180deg) !important;
+  transform: translate(calc(-50% + var(--i)*3px), calc(-150% + var(--i)*1.5px))
+             rotateY(-180deg) !important;
+  box-shadow: 0.5rem 0.2rem 0.5rem 0.1rem black;
 }
+
 
 .fromFar{
   transform: translateY(-260%) translateX(-490%) !important;
@@ -72,6 +79,21 @@ li{
   max-width: 1440px;
   margin: 2rem auto;
   padding: 0 2rem;
+}
+
+.cool{ 
+  animation: back 1s ease-in-out;
+}
+@keyframes back {
+  0%{
+    border: 1 px solid currentColor;
+    box-shadow: inset 0 0 0.5rem 0.3rem currentColor,
+                0 0 1rem 1rem currentColor,
+                0 0 3rem 1rem currentColor;
+  }
+  100%{
+
+  }
 }
 
 @keyframes scaling {
@@ -300,8 +322,8 @@ body{
   transform-style: preserve-3d;
   /* background: url(../assets/img/deck__back.png) no-repeat center/cover; */
   transform: rotate(calc(6deg*var(--i))) 
-            translateX(calc(10rem*var(--i)))
-            translateY(calc(-2rem*var(--u)));
+            translateX(calc(5.5rem*var(--i)))
+            translateY(calc(-2.5rem*var(--u)));
   cursor: grab;
   transition: 500ms;
 }
@@ -314,8 +336,8 @@ body{
               0 0 4rem 0.5rem #27e9cb,
               0 0 10rem 0.5rem #27e9cb;
   transform: rotate(calc(6deg*var(--i)))
-             translateX(calc(10rem*var(--i)))
-             translateY(calc((-2rem*var(--u)) + (-15rem)));
+             translateX(calc(5.5rem*var(--i)))
+             translateY(calc((-2.5rem*var(--u)) + (-15rem)));
 }
 
 
@@ -341,6 +363,64 @@ body{
 
 
 /*  Карты конец */
+
+
+
+.restart{
+  transition: 300ms;
+}
+.restart{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.355);
+}
+
+.restart__block{
+  position: relative;
+  width: 60%;
+  height: 40%;
+  background: rgb(157, 45, 45);
+  border-radius: 1rem;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.pos{
+  position: absolute;
+  width: 50%;
+  color: rgb(157, 45, 45);
+}
+.game__over{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 28rem;
+}
+
+.restart__game{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  width: 8rem;
+  height: 8rem;
+  font-size: 5rem;
+  color: white;
+}
+
+.restart__game:hover .redo{
+  transform: rotate(300deg);
+}
+
+.redo{
+  width: 100%;
+  transition: 500ms;
+}
 
 
 
