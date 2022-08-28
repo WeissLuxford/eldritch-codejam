@@ -48,27 +48,9 @@ eldritchGod.forEach(value => {
 function getCard(shufledArr, eldritchData, color, stage) {
   let colorArr = [];
   let cardNum = eldritchData[stage + "Stage"][color + "Cards"];
-  if(yourLevel === "light"){
     for(let i = 0; i < cardNum; i++){
       colorArr.push(shufledArr.pop())
     }
-  }else if(yourLevel === "easy"){
-    for(let i = 0; i < cardNum; i++){
-      colorArr.push(shufledArr.pop())
-    }
-  } else if(yourLevel === "normal"){
-    for(let i = 0; i < cardNum; i++){
-      colorArr.push(shufledArr.pop())
-    }
-  }else if(yourLevel === "hard"){
-    for(let i = 0; i < cardNum; i++){
-      colorArr.push(shufledArr.pop())
-    }
-  } else if(yourLevel === "impossible"){
-    for(let i = 0; i < cardNum; i++){
-      colorArr.push(shufledArr.pop())
-    }
-  }
   return colorArr
 }
 
@@ -78,7 +60,7 @@ function objToArray(arr) {
   arr.forEach(value => {
     let stages = []
     Object.values(value).forEach((prop) => {
-      prop.forEach((item, i) => {
+      prop.forEach(item => {
         stages.push(item)
       })
     })
@@ -87,13 +69,15 @@ function objToArray(arr) {
   return stageArr
 }
 
+
+
+  // колода в котором я соберу все карты в разные этапы
+function createDeck() {
   // пермешиваем карты 
   let shuffleBlue = shuffleCards(cardsData.blueCards, []),
   shuffleGreen = shuffleCards(cardsData.greenCards, []),
   shuffleBrown = shuffleCards(cardsData.brownCards, []);
 
-  // колода в котором я соберу все карты в разные этапы
-function createDeck() {
    newDeck = [
     {
       green: getCard(shuffleGreen, gods, 'green', 'first'),
@@ -125,9 +109,24 @@ function createDeck() {
     do{
       let randCard = getRandomNumber(0, cardArr.length - 1);
       if(!myDeck.includes(cardArr[randCard])){
-        myDeck.push(cardArr[randCard]);
+        if(yourLevel === "light"){
+          cardArr[randCard].difficulty === "easy" ? myDeck.push(cardArr[randCard]) : 
+          myDeck.unshift(cardArr[randCard]);
+        } else if(yourLevel === "easy"){
+          cardArr[randCard].difficulty === "hard" ? myDeck.unshift(cardArr[randCard]) :
+          myDeck.push(cardArr[randCard]);
+        } else if(yourLevel === "normal"){
+          myDeck.push(cardArr[randCard]);
+        } else if(yourLevel === "hard"){
+          cardArr[randCard].difficulty === "easy" ? myDeck.unshift(cardArr[randCard]) :
+          myDeck.push(cardArr[randCard]);
+        } else if(yourLevel === "impossible"){
+          cardArr[randCard].difficulty === "hard" ? myDeck.push(cardArr[randCard]) : 
+          myDeck.unshift(cardArr[randCard]);
+        }
       }
     } while(myDeck.length !== cardArr.length);
+    
     return myDeck
   }
 
@@ -227,7 +226,7 @@ function countCards(grNum, brNum, blNum) {
       color[index].classList.toggle("cool")
       setTimeout(() => (color[index].classList.toggle("cool")), 600)
     } 
-    console.log(green[0].classList);
+   
     if(col === "green"){
       grNum <= gods[f][gr] ? clear(green, 0):
       grNum <= gods[f][gr] + gods[s][gr] ? clear(green, 1):
