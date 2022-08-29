@@ -264,3 +264,41 @@ function countCards(grNum, brNum, blNum) {
 document.querySelector(".restart__game").addEventListener("click", () => {
   document.querySelector(".restart").classList.add("fade_s")
 })
+
+
+
+const godsWall = document.querySelector('.walpapper__box'),
+  godsImg = document.querySelectorAll('.gods'),
+  godsBox = document.querySelector('.gods__img-box'),
+  startButt = document.querySelector('.start__button'),
+  fALS = document.querySelector('.first__and__last-section');
+
+  // при клике убираю у всех класс big после на target добавляет этот же класс
+  godsWall.addEventListener('click', (e) => {
+// перебираю картинки
+    godsImg.forEach((value, i) => {
+
+      value.classList.remove('big')
+      //если таргет кнопка убираем картинки
+      if(e.target.matches('.start')){
+        startButt.classList.add('fade')
+        setTimeout(() => {
+          value.style.transition = `1.3s`
+          i%2==0 ? godsImg[i].children[0].classList.add("go__top") : 
+          godsImg[i].children[0].classList.add("go__bottom");
+        },400)
+        setTimeout(() => {
+          godsWall.classList.add('fade')
+          box.classList.remove('fade')
+        }, 1600)
+       }
+  })
+  // добавляю класс big на таргет 
+  e.target.parentNode.classList.add("big")
+
+  // при нажатии на кнопку big передается и контейнеру так что на всякий
+  // случай решил убрать у него этот класс если 
+  godsWall.classList.remove("big");
+  fALS.classList.remove("big");
+
+})

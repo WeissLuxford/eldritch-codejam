@@ -425,5 +425,102 @@ body{
 }
 
 
+.go__top{
+  transform: translateY(-120%)  skew(-7deg) !important;
+}
+.go__bottom{
+  transform: translateY(120%) skew(-7deg) !important;
+}
+.walpapper__box{
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0 auto;
+  transition: 400ms;
+}
 
+.gods__img-box{
+  display: flex;
+  justify-content: center;
+  width: 120%;
+  transform: translateX(-9%) !important;
+}
 
+.gods{
+  position: relative;
+  width: 25%;
+  height: 100vh;
+  transition: 400ms;
+  overflow: hidden;
+  transform: skew(-7deg);
+  margin: 0 -2px;
+}
+
+.gods__name{
+  position: absolute;
+  bottom: 20%;
+  left: 70%;
+  font-size: 2rem;
+  color: aliceblue;
+  text-shadow: 0 0 5px black;
+  z-index: 7;
+}
+
+.gods__img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 1.5s;
+
+}
+.gods__img:hover{
+  transform: scale(1.1);
+}
+
+.big{
+  object-fit: fill !important;
+  width: 80%;
+}
+
+.start__button{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) skew(9deg);
+  z-index: 7;
+  transition: 600ms;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game__title{
+  font-size: 10rem;
+  text-shadow: 0 0 5px white;
+}
+
+.start{
+  margin-top: 10rem;
+  width: 30rem;
+  height: 7rem;
+  background: rgb(195, 60, 60);
+  box-shadow: -1px 1px 1px 1px #ffff,
+              -2px 2px 2px 2px #777,
+              -3px 3px 3px 3px #444,
+              -4px 4px 4px 4px #333,
+              -5px 5px 5px 5px #111,
+              -6px 6px 6px 6px #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  text-transform: uppercase;
+  transition: 300ms;
+  cursor: pointer;
+}
+
+.start:active{
+  transform: translate(-6px, 6px);
+  box-shadow: -1px 1px 1px 1px #111;
+}
